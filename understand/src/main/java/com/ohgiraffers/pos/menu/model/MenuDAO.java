@@ -17,4 +17,6 @@ public interface MenuDAO { // model -> DAO
     int modifyMenu(MenuDTO modify);
 
     MenuDTO searchMenu(int code);
+
+    int deleteMenu(MenuDTO menuDTO);
 }

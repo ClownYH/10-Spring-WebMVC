@@ -50,7 +50,13 @@
     </select>
         <br>
         상태 : <input type="text" name="status"/><br>
-        <button type="submit">등록하기</button>
+        <button type="submit">수정하기</button>
+    </form>
+
+    <h3>메뉴 삭제하기</h3>
+    <form action="/menus/delete" method="post">
+        삭제하고자 하는 메뉴의 코드 : <input type="number" name="code"/><br>
+        <button type="submit">삭제하기</button>
     </form>
 </body>
 </html>

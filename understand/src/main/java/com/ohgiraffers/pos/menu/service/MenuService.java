@@ -28,6 +28,16 @@ public class MenuService {
         return menus;
     }
 
+    public MenuDTO searchMenu(int code) {
+        MenuDTO menu = menuDAO.searchMenu(code);
+
+        if(Objects.isNull(menu)){
+            throw new NullPointerException();
+        }else {
+            return menu;
+        }
+    }
+
     public int registMenu(RegistDTO regist) {
         int result = menuDAO.registMenu(regist);
 
@@ -49,9 +59,9 @@ public class MenuService {
         return result;
     }
 
-    public MenuDTO searchMenu(int code) {
-        MenuDTO menu = menuDAO.searchMenu(code);
+    public int deleteMenu(MenuDTO menuDTO) {
+        int result = menuDAO.deleteMenu(menuDTO);
 
-        return menu;
+        return result;
     }
 }

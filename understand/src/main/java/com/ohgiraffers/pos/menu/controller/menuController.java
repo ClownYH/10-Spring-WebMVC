@@ -29,22 +29,34 @@ public class menuController {
         List<MenuDTO> menus = menuService.selectAllMenu();
 
         if(Objects.isNull(menus)){
-            System.out.println("exception으로 대체한다.");
-        }
+            throw new NullPointerException();
 
-        mv.addObject("menus", menus);
-        mv.setViewName("menu/allMenus");
-        return mv;
+        }else {
+            mv.addObject("menus", menus);
+            mv.setViewName("menu/allMenus");
+            return mv;
+        }
     }
 
     @GetMapping("/search")
     public ModelAndView searchMenu(ModelAndView mv,@RequestParam int code){
 
+        if(code == 0){
+            System.out.println("메뉴 코드는 0일 수 없습니다.");
+            mv.addObject("message", "메뉴 코드는 0이 될 수 없습니다.");
+            mv.setViewName("error/errorPage");
+            return mv;
+        }
+
         MenuDTO menu = menuService.searchMenu(code);
 
-        mv.addObject("menu", menu);
-        mv.setViewName("result/searchResult");
-        return mv;
+        if(Objects.isNull(menu)){
+            throw new NullPointerException();
+        }else {
+            mv.addObject("menu", menu);
+            mv.setViewName("result/searchResult");
+            return mv;
+        }
     }
 
     @PostMapping("/regist")
@@ -95,5 +107,24 @@ public class menuController {
             model.addAttribute("message", "수정에 실패하셨습니다.");
             return "result/modifyResult";
         }
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView deleteMenu(ModelAndView mv, MenuDTO menuDTO){
+
+        int result = menuService.deleteMenu(menuDTO);
+
+        if(result <= 0){
+            System.out.println("삭제에 실패하셨습니다.");
+            mv.addObject("message", "삭제에 실패하셨습니다.");
+            mv.setViewName("result/deleteResult");
+            return mv;
+        }else {
+
+            mv.addObject("message", menuDTO.getCode() + "번 메뉴를 삭제하셨습니다.");
+            mv.setViewName("result/deleteResult");
+            return mv;
+        }
+
     }
 }

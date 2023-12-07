@@ -54,4 +54,10 @@
         WHERE
             MENU_CODE = #{code}
     </update>
+
+    <delete id="deleteMenu" parameterType="com.ohgiraffers.pos.menu.dto.MenuDTO">
+        DELETE FROM TBL_MENU
+        WHERE
+            MENU_CODE = #{code}
+    </delete>
 </mapper>
