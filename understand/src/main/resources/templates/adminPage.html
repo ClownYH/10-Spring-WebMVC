@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>ADMIN MAIN</h1>
+
+    <h3>모든 메뉴 조회하기</h3>
+    <button onclick="location.href='/menus'">모든 메뉴 조회하기</button>
+
+    <h3>메뉴 조회하기</h3>
+    <form action="/menus/search" method="get">
+        메뉴 코드 : <input type="number" name="code"/><br>
+        <button type="submit">조회하기</button>
+    </form>
+
+    <h3>메뉴 등록하기</h3>
+
+    <form action="/menus/regist" method="post">
+        메뉴 이름 : <input type="text" name="name"/><br>
+        메뉴 가격 : <input type="number" name="price"/><br>
+        카테고리 코드 : <select name="categoryCode">
+        <option value="4">한식</option>
+        <option value="5">중식</option>
+        <option value="6">일식</option>
+        <option value="7">퓨전</option>
+        <option value="8">커피</option>
+        <option value="9">쥬스</option>
+        <option value="10">기타</option>
+    </select>
+        <br>
+        상태 : <input type="text" name="status"/><br>
+        <button type="submit">등록하기</button>
+    </form>
+
+    <h3>메뉴 수정하기</h3>
+    <form action="/menus/modify" method="post">
+        수정하고자 하는 메뉴의 코드 : <input type="number" name="code"/><br>
+        메뉴 이름 : <input type="text" name="name"/><br>
+        메뉴 가격 : <input type="number" name="price"/><br>
+        카테고리 코드 : <select name="categoryCode">
+        <option value="4">한식</option>
+        <option value="5">중식</option>
+        <option value="6">일식</option>
+        <option value="7">퓨전</option>
+        <option value="8">커피</option>
+        <option value="9">쥬스</option>
+        <option value="10">기타</option>
+    </select>
+        <br>
+        상태 : <input type="text" name="status"/><br>
+        <button type="submit">수정하기</button>
+    </form>
+
+    <h3>메뉴 삭제하기</h3>
+    <form action="/menus/delete" method="post">
+        삭제하고자 하는 메뉴의 코드 : <input type="number" name="code"/><br>
+        <button type="submit">삭제하기</button>
+    </form>
+
+</body>
+</html>

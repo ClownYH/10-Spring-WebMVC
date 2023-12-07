@@ -18,7 +18,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("menus")
-public class menuController {
+public class MenuController {
 
     @Autowired
     private MenuService menuService;
@@ -57,6 +57,11 @@ public class menuController {
             mv.setViewName("result/searchResult");
             return mv;
         }
+    }
+
+    @PostMapping("/auth")
+    public  String goToAdminPage(){
+        return "/adminPage";
     }
 
     @PostMapping("/regist")
