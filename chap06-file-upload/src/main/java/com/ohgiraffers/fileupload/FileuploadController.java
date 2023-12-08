@@ -1,5 +1,7 @@
 package com.ohgiraffers.fileupload;
 
+import jakarta.annotation.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,13 +18,17 @@ import java.util.UUID;
 @Controller
 public class FileuploadController {
 
+    @Resource
+    private ResourceLoader resourceLoader;
+
     @RequestMapping(value = {"/", "/main"})
     public String index(){
         return "main";
     }
 
     @PostMapping("single-file")
-    public String singleFileUpload(@RequestParam MultipartFile singleFile, String singleFileDescription, Model model){
+    public String singleFileUpload(@RequestParam MultipartFile singleFile, String singleFileDescription, Model model) throws IOException {
+        // 원래 파일 등록은 서비스 로직에서 수행
         System.out.println("single file : " + singleFile);
         System.out.println("원본 파일 이름 : " + singleFile.getOriginalFilename());
         System.out.println("input name : " + singleFile.getName());
@@ -31,9 +37,9 @@ public class FileuploadController {
         System.out.println("원본 파일 사이즈 : " + singleFile.getSize()); // 사이즈는 용량을 의미, 제한을 줘야 한다.
 
         // 파일을 저장할 경로 설정(실제 파일을 저장할 위치는 이렇게 사용하지 않는다. FTP나 nodejs, s3 서버 등을 이용한다.)
-        String root = "c:/upload-files";
-        String filePath = root + "/single";
-
+//        String root = "c:/upload-files";
+//        String filePath = root + "/single";
+        String filePath = resourceLoader.getResource("classpath:static/img/").getFile().getAbsolutePath();
         File dir = new File(filePath);
         System.out.println(dir.getAbsolutePath());
 
@@ -49,6 +55,7 @@ public class FileuploadController {
             System.out.println("filePath==========================" + filePath);
             singleFile.transferTo(new File(filePath + "/" + savedName));
             model.addAttribute("message", "파일 업로드 성공");
+            model.addAttribute("img", "static/img/" + savedName);
             System.out.println("singleFileDescription : " + singleFileDescription);
         }catch (IOException e){
             e.printStackTrace();
